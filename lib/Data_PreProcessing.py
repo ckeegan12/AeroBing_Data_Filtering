@@ -10,6 +10,9 @@ GPS_DATA = pd.read_csv("/workspaces/AeroBing_Data_Filtering/Flight_Data/SHART_GP
 def Get_Variables(File,Variable_Name):
   return pd.read_csv(File,usecols=Variable_Name)
 
+print(GPS_DATA.head())
+
+"""
 # GPS DATA VARIABLES
 GPS_File = "/workspaces/AeroBing_Data_Filtering/Flight_Data/SHART_SENSOR_DATA_copy.csv"
 GPS_Variable_Name = ['time','latitude','longitude','altitude','vel_n','vel_e','vel_d','eph','epv','sacc','gspeed','pdop','nsats','fix_type','valid','flags']
@@ -29,8 +32,9 @@ def Plot_Var(inputx,inputy):
   trace = go.scatter(x=inputx,y=inputy,mode='lines+markers')
   return py.iplot([trace])
 
-for i in range(len(GPS_Variable_Name - 'time')):
-  Plot_Var(GPS_time,GPS_Variable_Name[i])
+for i in range(len(GPS_Variable_Name) - 1):
+  Plot_Var(GPS_time,GPS_Variable_Name[i + 1])
 
-for i in range(len(SENSOR_Variable_Name - 'time')):
-  Plot_Var(SENSOR_time,GPS_Variable_Name[i])
+for i in range(len(SENSOR_Variable_Name) - 1):
+  Plot_Var(SENSOR_time,GPS_Variable_Name[i + 1])"
+  """
