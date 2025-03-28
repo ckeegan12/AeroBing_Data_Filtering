@@ -10,7 +10,7 @@ GPS_DATA = pd.read_csv("/workspaces/AeroBing_Data_Filtering/Flight_Data/SHART_GP
 def Get_Variables(File,Variable_Name):
   return pd.read_csv(File,usecols=Variable_Name)
 
-print(GPS_DATA.head())
+print(GPS_DATA.columns)
 
 """
 # GPS DATA VARIABLES
