@@ -10,19 +10,22 @@ GPS_DATA = pd.read_csv("/workspaces/AeroBing_Data_Filtering/Flight_Data/SHART_GP
 def Get_Variables(File,Variable_Name):
   return pd.read_csv(File,usecols=Variable_Name)
 
-print(GPS_DATA.columns)
 
-"""
+##### TEST CODE ######
+# print(GPS_DATA.columns)
+# print(SENSOR_DATA.columns)
+##### TEST END #####
+
 # GPS DATA VARIABLES
 GPS_File = "/workspaces/AeroBing_Data_Filtering/Flight_Data/SHART_SENSOR_DATA_copy.csv"
-GPS_Variable_Name = ['time','latitude','longitude','altitude','vel_n','vel_e','vel_d','eph','epv','sacc','gspeed','pdop','nsats','fix_type','valid','flags']
+GPS_Variable_Name = GPS_DATA.columns
 
 df_GPS = Get_Variables(GPS_File,GPS_Variable_Name)
 GPS_time = df_GPS['time']
 
 # SENSOR DATA VARIABLES
 SENSOR_File = "/workspaces/AeroBing_Data_Filtering/Flight_Data/SHART_GPS_DATA_copy.csv"
-SENSOR_Variable_Name = ['time','acc_x','acc_y','acc_z','gyr_x','gyr_y','gyr_z','mag_x','mag_y','mag_z','temp','pressure','acc_x_adxl','acc_y_adxl','acc_y_adxl','status','sd_file']
+SENSOR_Variable_Name = SENSOR_DATA.columns
 
 df_SENSOR = Get_Variables(SENSOR_File,SENSOR_Variable_Name)
 SENSOR_time = df_SENSOR['time']
@@ -37,4 +40,3 @@ for i in range(len(GPS_Variable_Name) - 1):
 
 for i in range(len(SENSOR_Variable_Name) - 1):
   Plot_Var(SENSOR_time,GPS_Variable_Name[i + 1])"
-  """
