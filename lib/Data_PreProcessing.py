@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import plotly as py
+import plotly.graph_objs as go
 
 # Import Data SETS
 SENSOR_DATA = pd.read_csv("ckeegan12/AeroBing_Data_Filtering/Flight_Data/SHART_SENSOR_DATA_copy.csv")
@@ -21,3 +23,14 @@ SENSOR_Variable_Name = ['time','acc_x','acc_y','acc_z','gyr_x','gyr_y','gyr_z','
 
 df_SENSOR = Get_Variables(SENSOR_File,SENSOR_Variable_Name)
 SENSOR_time = df_SENSOR['time']
+
+# VISUALIZATION OF DATA
+def Plot_Var(inputx,inputy):
+  trace = go.scatter(x=inputx,y=inputy,mode='lines+markers')
+  return py.iplot([trace])
+
+for i in range(len(GPS_Variable_Name - 'time')):
+  Plot_Var(GPS_time,GPS_Variable_Name[i])
+
+for i in range(len(SENSOR_Variable_Name - 'time')):
+  Plot_Var(SENSOR_time,GPS_Variable_Name[i])
