@@ -30,18 +30,18 @@ df_SENSOR = Get_Variables(SENSOR_File, SENSOR_Variable_Name)
 SENSOR_time = df_SENSOR['time']
 
 # VISUALIZATION OF DATA
-def Plot_Var(inputx, inputy, title="Data Plot", xaxis_title="Time", yaxis_title="Value"):
+def Plot_Var(inputx, inputy, column_name, xaxis_title="Time"):
     trace = go.Scatter(
         x=inputx,
         y=inputy,
         mode='lines+markers',
-        name=yaxis_title 
+        name={column_name}
     )
     
     layout = go.Layout(
-        title=title,
+        title="{column_name} vs. Time",
         xaxis=dict(title=xaxis_title),
-        yaxis=dict(title=yaxis_title),
+        yaxis=dict(title={column_name}),
         showlegend=True
     )
     
@@ -51,9 +51,9 @@ def Plot_Var(inputx, inputy, title="Data Plot", xaxis_title="Time", yaxis_title=
 # Plot GPS variables
 for i in range(len(GPS_Variable_Name) - 1):
     if GPS_Variable_Name[i + 1] != 'time':  
-        Plot_Var(GPS_time, df_GPS[GPS_Variable_Name[i + 1]])
+        Plot_Var(GPS_time,df_GPS.columns,df_GPS[GPS_Variable_Name[i + 1]])
 
 # Plot SENSOR variables
 for i in range(len(SENSOR_Variable_Name) - 1):
     if SENSOR_Variable_Name[i + 1] != 'time':  
-        Plot_Var(SENSOR_time, df_SENSOR[SENSOR_Variable_Name[i + 1]])
+        Plot_Var(SENSOR_time,df_SENSOR.columns,df_SENSOR[SENSOR_Variable_Name[i + 1]])
