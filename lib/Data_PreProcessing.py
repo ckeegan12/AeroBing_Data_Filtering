@@ -31,7 +31,7 @@ SENSOR_time = df_SENSOR['time']
 
 # VISUALIZATION OF DATA
 def Plot_Var(inputx, inputy):
-    trace = go.scatter(x=inputx, y=inputy, mode='lines+markers')
+    trace = go.Scatter(x=inputx, y=inputy, mode='lines+markers')
     return py.iplot([trace])
 
 # Plot GPS variables
