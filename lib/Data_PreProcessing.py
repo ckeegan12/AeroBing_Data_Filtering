@@ -35,11 +35,11 @@ def Plot_Var(inputx, inputy, column_name, xaxis_title="Time"):
         x=inputx,
         y=inputy,
         mode='lines+markers',
-        name={column_name}
+        name=column_name
     )
     
     layout = go.Layout(
-        title="{column_name} vs. Time",
+        title=f"{column_name} vs. Time",
         xaxis=dict(title=xaxis_title),
         yaxis=dict(title={column_name}),
         showlegend=True
