@@ -51,9 +51,9 @@ def Plot_Var(inputx, inputy, column_name, xaxis_title="Time"):
 # Plot GPS variables
 for i in range(len(GPS_Variable_Name) - 1):
     if GPS_Variable_Name[i + 1] != 'time':  
-        Plot_Var(GPS_time,df_GPS.columns,df_GPS[GPS_Variable_Name[i + 1]])
+        Plot_Var(GPS_time,GPS_Variable_Name[i + 1],df_GPS[GPS_Variable_Name[i + 1]])
 
 # Plot SENSOR variables
 for i in range(len(SENSOR_Variable_Name) - 1):
     if SENSOR_Variable_Name[i + 1] != 'time':  
-        Plot_Var(SENSOR_time,df_SENSOR.columns,df_SENSOR[SENSOR_Variable_Name[i + 1]])
+        Plot_Var(SENSOR_time,SENSOR_Variable_Name[i + 1],df_SENSOR[SENSOR_Variable_Name[i + 1]])
