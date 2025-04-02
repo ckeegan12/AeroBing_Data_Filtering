@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-
-data = pd.read_csv("")
+import plotly as py
+import plotly.graph_objs as go
 
 class Kalman:
   def init(self,acceleration,pressure,orientation,velocity):
@@ -12,7 +12,6 @@ class Kalman:
     return(acceleration,pressure,orientation,velocity)
   
   def estimate(estimate,obs_val,time):
-    time = np.len(data)
     
     return
     
