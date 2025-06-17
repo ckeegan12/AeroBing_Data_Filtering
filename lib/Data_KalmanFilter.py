@@ -1,77 +1,30 @@
+# AeroBing Kalman Filter template(creator: Cian Keegan)
+# Kalman Filter for smooth out data graph to be able to obtain an accurate derivative
 import numpy as np
+import pandas as pd
 
-# offsets of each variable in the state vector
-iX = 0
-iV = 1
-NUMVARS = iV + 1
+# import data here
 
+# Initialization
+R = 0.1 # measurement of covariance (can be changed)
+C = 0.002 # process of covariance (can be changed)
 
-class KF:
-    def __init__(self, initial_x: float, 
-                       initial_v: float,
-                       accel_variance: float) -> None:
-        # mean of state GRV
-        self._x = np.zeros(NUMVARS)
+x = np.zeros(num_measurements)        # Current measurement
+p = np.zeros(num_measurements)        # Current error term
+x_minus = np.zeros(num_measurements)  # Past measurement
+p_minus = np.zeros(num_measurements)  # Past error term
+k_gain = np.zeros(num_measurements)   # Kalman gain
 
-        self._x[iX] = initial_x
-        self._x[iV] = initial_v
-        
-        self._accel_variance = accel_variance
+x[0] = 0
+p[0] = 1
 
-        # covariance of state GRV
-        self._P = np.eye(NUMVARS)
+# Updating variables loop
+for i in range(1,num_measurement):
+    x_minus[i] = x[i-1]
+    p_minus[i] = p[i-1] + C
 
-    def predict(self, dt: float) -> None:
-        # x = F x
-        # P = F P Ft + G Gt a
-        F = np.eye(NUMVARS)
-        F[iX, iV] = dt
-        new_x = F.dot(self._x)
+    k_gain[i] = p_minus[i] / (p_minus[i]+R) 
+    x[i] = x_minus[i] + k_gain[i] * (measurement[i] - x_minus[i])
+    p[i] = (1-k_gain[i]) * p_minus[i]
 
-        G = np.zeros((2, 1))
-        G[iX] = 0.5 * dt**2
-        G[iV] = dt
-        new_P = F.dot(self._P).dot(F.T) + G.dot(G.T) * self._accel_variance
-
-        self._P = new_P
-        self._x = new_x
-
-    def update(self, meas_value: float, meas_variance: float):
-        # y = z - H x
-        # S = H P Ht + R
-        # K = P Ht S^-1
-        # x = x + K y
-        # P = (I - K H) * P
-
-        H = np.zeros((1, NUMVARS))
-        H[0, iX] = 1
-
-        z = np.array([meas_value])
-        R = np.array([meas_variance])
-
-        y = z - H.dot(self._x)
-        S = H.dot(self._P).dot(H.T) + R
-
-        K = self._P.dot(H.T).dot(np.linalg.inv(S))
-
-        new_x = self._x + K.dot(y)
-        new_P = (np.eye(2) - K.dot(H)).dot(self._P)
-
-        self._P = new_P
-        self._x = new_x
-
-    @property
-    def cov(self) -> np.array:
-        return self._P
-
-    @property
-    def mean(self) -> np.array:
-        return self._x
-
-    @property
-    def pos(self) -> float:
-        return self._x[iX]
-
-    @property
-    def vel(self) -> float:
-        return self._x[iV]
+# plot x to see new smoothed dataset
