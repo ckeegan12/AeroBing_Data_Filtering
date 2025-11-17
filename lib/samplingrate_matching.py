@@ -12,8 +12,8 @@ class SampleRateMatching:
         Clips both datasets to the shorter time duration.
 
         Parameters: 
-            fast_data_df: DataFrame with time index and data columns
-            slow_data_df: DataFrame with time index and data columns
+            fast_data_df: DataFrame with time index and data columns | Size: [N, 3] (time, x, y)
+            slow_data_df: DataFrame with time index and data columns | Size: [M, 2] (time, z)
             downsample: If True, downsample fast to slow rate. If False, upsample slow to fast rate.
         
         Returns:
